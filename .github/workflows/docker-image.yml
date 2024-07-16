@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["learn-1.5.0"]
+  pull_request:
+    branches: ["learn-1.5.0"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Docker image RUNTIMES all
+        run: docker build ./hack/.. --file Dockerfile --build-arg RUNTIMES=all -t seldonio/mlserver:1.5.0
+      - name: Build the Docker image RUNTIMES
+        run: docker build ./hack/.. --file Dockerfile --build-arg RUNTIMES= -t seldonio/mlserver:1.5.0-slim
+      - name: Build the Docker image RUNTIMES mlserver-huggingface
+        run: docker build ./hack/.. --file Dockerfile --build-arg RUNTIMES=mlserver-huggingface -t seldonio/mlserver:1.5.0-huggingface
