@@ -23,4 +23,8 @@
 
 (.env) @lanzhiwang ➜ /workspaces/SeldonIO-MLServer (learn-1.5.0) $ python ./example/02-Serving-HuggingFace-models/client.py
 
+pip install poetry==1.8.3
+poetry install -C ./
+poetry install -C ./runtimes/huggingface/
+
 ```
