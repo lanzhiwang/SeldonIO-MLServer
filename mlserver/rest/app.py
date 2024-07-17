@@ -43,7 +43,7 @@ class APIRoute(FastAPIRoute):
         original_route_handler = super().get_route_handler()
 
         async def custom_route_handler(request: Request) -> FastAPIResponse:
-            print("resr app APIRoute request.scope:", request.scope)
+            # print("resr app APIRoute request.scope:", request.scope)
             # resr app APIRoute request.scope:
             # {
             #     'type': 'http',
@@ -92,17 +92,69 @@ class APIRoute(FastAPIRoute):
             #         methods=['POST']
             #     )
             # }
+            ################################################
+            # resr app APIRoute request.scope:
+            # {
+            #     'type': 'http',
+            #     'asgi': {
+            #         'version': '3.0',
+            #         'spec_version': '2.3'
+            #     },
+            #     'http_version': '1.1',
+            #     'server': ('127.0.0.1', 8080),
+            #     'client': ('127.0.0.1', 51594),
+            #     'scheme': 'http',
+            #     'method': 'POST',
+            #     'root_path': '',
+            #     'path': '/v2/models/transformer/infer',
+            #     'raw_path': b'/v2/models/transformer/infer',
+            #     'query_string': b'',
+            #     'headers': [
+            #         (b'host', b'localhost:8080'),
+            #         (b'user-agent', b'python-requests/2.31.0'),
+            #         (b'accept-encoding', b'gzip, deflate, br'),
+            #         (b'accept', b'*/*'),
+            #         (b'connection', b'keep-alive'),
+            #         (b'content-length', b'93'),
+            #         (b'content-type', b'application/json')
+            #     ],
+            #     'state': {},
+            #     'app': <fastapi.applications.FastAPI object at 0x70d60e159510>,
+            #     'starlette.exception_handlers': (
+            #         {
+            #             <class 'starlette.exceptions.HTTPException'>: <function http_exception_handler at 0x70d620081900>,
+            #             <class 'starlette.exceptions.WebSocketException'>: <bound method ExceptionMiddleware.websocket_exception of <starlette.middleware.exceptions.ExceptionMiddleware object at 0x70d4f9cbbd60>>,
+            #             <class 'mlserver.errors.MLServerError'>: <function handle_mlserver_error at 0x70d60e496170>,
+            #             <class 'fastapi.exceptions.RequestValidationError'>: <function request_validation_exception_handler at 0x70d6200827a0>,
+            #             <class 'fastapi.exceptions.WebSocketRequestValidationError'>: <function websocket_request_validation_exception_handler at 0x70d620082830>},
+            #             {}
+            #     ),
+            #     'router': <fastapi.routing.APIRouter object at 0x70d60e15b820>,
+            #     'endpoint': <bound method Endpoints.infer of <mlserver.rest.endpoints.Endpoints object at 0x70d61f5a0820>>,
+            #     'path_params': {'model_name': 'transformer'},
+            #     'route': APIRoute(
+            #         path='/v2/models/{model_name}/infer',
+            #         name='infer',
+            #         methods=['POST']
+            #     )
+            # }
 
-            print("resr app APIRoute request.app:", request.app)
+            # print("resr app APIRoute request.app:", request.app)
             # resr app APIRoute request.app: <fastapi.applications.FastAPI object at 0x75fa294a0bb0>
+            ################################################
+            # resr app APIRoute request.app: <fastapi.applications.FastAPI object at 0x70d60e159510>
 
-            print("resr app APIRoute request.url:", request.url)
+            # print("resr app APIRoute request.url:", request.url)
             # resr app APIRoute request.url: http://localhost:8080/v2/models/mnist-svm/versions/v0.1.0/infer
+            ################################################
+            # resr app APIRoute request.url: http://localhost:8080/v2/models/transformer/infer
 
-            print("resr app APIRoute request.base_url:", request.base_url)
+            # print("resr app APIRoute request.base_url:", request.base_url)
+            # resr app APIRoute request.base_url: http://localhost:8080/
+            ################################################
             # resr app APIRoute request.base_url: http://localhost:8080/
 
-            print("resr app APIRoute request.headers:", request.headers)
+            # print("resr app APIRoute request.headers:", request.headers)
             # resr app APIRoute request.headers:
             # Headers(
             #     {
@@ -115,33 +167,60 @@ class APIRoute(FastAPIRoute):
             #         'content-type': 'application/json'
             #     }
             # )
+            ################################################
+            # resr app APIRoute request.headers:
+            # Headers(
+            #     {
+            #         'host': 'localhost:8080',
+            #         'user-agent': 'python-requests/2.31.0',
+            #         'accept-encoding': 'gzip, deflate, br',
+            #         'accept': '*/*',
+            #         'connection': 'keep-alive',
+            #         'content-length': '93',
+            #         'content-type': 'application/json'
+            #     }
+            # )
 
-            print("resr app APIRoute request.query_params:", request.query_params)
+            # print("resr app APIRoute request.query_params:", request.query_params)
+            # resr app APIRoute request.query_params:
+            ################################################
             # resr app APIRoute request.query_params:
 
-            print("resr app APIRoute request.path_params:", request.path_params)
+            # print("resr app APIRoute request.path_params:", request.path_params)
             # resr app APIRoute request.path_params: {'model_name': 'mnist-svm', 'model_version': 'v0.1.0'}
+            ################################################
+            # resr app APIRoute request.path_params: {'model_name': 'transformer'}
 
-            print("resr app APIRoute request.cookies:", request.cookies)
+            # print("resr app APIRoute request.cookies:", request.cookies)
+            # resr app APIRoute request.cookies: {}
+            ################################################
             # resr app APIRoute request.cookies: {}
 
-            print("resr app APIRoute request.client:", request.client)
+            # print("resr app APIRoute request.client:", request.client)
             # resr app APIRoute request.client: Address(host='127.0.0.1', port=56818)
+            ################################################
+            # resr app APIRoute request.client: Address(host='127.0.0.1', port=51594)
 
             # print("resr app APIRoute request.session:", request.session)
             # print("resr app APIRoute request.auth:", request.auth)
             # print("resr app APIRoute request.user:", request.user)
 
-            print("resr app APIRoute request.state:", request.state)
+            # print("resr app APIRoute request.state:", request.state)
             # resr app APIRoute request.state: <starlette.datastructures.State object at 0x75f9f45da9b0>
+            ################################################
+            # resr app APIRoute request.state: <starlette.datastructures.State object at 0x70d4f9cba950>
 
-            print("resr app APIRoute request.method:", request.method)
+            # print("resr app APIRoute request.method:", request.method)
+            # resr app APIRoute request.method: POST
+            ################################################
             # resr app APIRoute request.method: POST
 
-            print("resr app APIRoute request.receive:", request.receive)
+            # print("resr app APIRoute request.receive:", request.receive)
             # resr app APIRoute request.receive: <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x75f9f45da260>>
+            ################################################
+            # resr app APIRoute request.receive: <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x70d4f9cb8820>>
 
-            print("resr app APIRoute request.body:", await request.body())
+            # print("resr app APIRoute request.body:", await request.body())
             # resr app APIRoute request.body:
             # b'{
             #     "inputs": [
@@ -155,8 +234,20 @@ class APIRoute(FastAPIRoute):
             #         }
             #     ]
             # }'
+            ################################################
+            # resr app APIRoute request.body:
+            # b'{
+            #     "inputs": [
+            #         {
+            #             "name": "args",
+            #             "shape": [1],
+            #             "datatype": "BYTES",
+            #             "data": ["this is a test"]
+            #         }
+            #     ]
+            # }'
 
-            print("resr app APIRoute request.json:", await request.json())
+            # print("resr app APIRoute request.json:", await request.json())
             # resr app APIRoute request.json:
             # {
             #     'inputs': [
@@ -167,6 +258,18 @@ class APIRoute(FastAPIRoute):
             #             'data': [
             #                 [0.0, 0.0, 1.0, 11.0, 14.0, 15.0, 3.0, 0.0, 0.0, 1.0, 13.0, 16.0, 12.0, 16.0, 8.0, 0.0, 0.0, 8.0, 16.0, 4.0, 6.0, 16.0, 5.0, 0.0, 0.0, 5.0, 15.0, 11.0, 13.0, 14.0, 0.0, 0.0, 0.0, 0.0, 2.0, 12.0, 16.0, 13.0, 0.0, 0.0, 0.0, 0.0, 0.0, 13.0, 16.0, 16.0, 6.0, 0.0, 0.0, 0.0, 0.0, 16.0, 16.0, 16.0, 7.0, 0.0, 0.0, 0.0, 0.0, 11.0, 13.0, 12.0, 1.0, 0.0]
             #             ]
+            #         }
+            #     ]
+            # }
+            ################################################
+            # resr app APIRoute request.json:
+            # {
+            #     'inputs': [
+            #         {
+            #             'name': 'args',
+            #             'shape': [1],
+            #             'datatype': 'BYTES',
+            #             'data': ['this is a test']
             #         }
             #     ]
             # }
