@@ -93,11 +93,17 @@ class Endpoints:
         model_name: str,
         model_version: Optional[str] = None,
     ) -> InferenceResponse:
-        print("rest endpoint Endpoints infer raw_request:", raw_request)
-        # rest endpoint Endpoints infer raw_request: <mlserver.rest.requests.Request object at 0x7fd4ad491630>
-        print("rest endpoint Endpoints infer raw_response:", raw_response)
-        # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7fd4ad4910f0>
-        print("rest endpoint Endpoints infer payload:", payload)
+        # print("rest endpoint Endpoints infer raw_request:", raw_request)
+        # rest endpoint Endpoints infer raw_request: <mlserver.rest.requests.Request object at 0x7d685516f2e0>
+        ###################################################
+        # rest endpoint Endpoints infer raw_request: <mlserver.rest.requests.Request object at 0x7b1441333e50>
+
+        # print("rest endpoint Endpoints infer raw_response:", raw_response)
+        # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7d685516ef20>
+        ###################################################
+        # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7b1441333d00>
+
+        # print("rest endpoint Endpoints infer payload:", payload)
         # rest endpoint Endpoints infer payload:
         #     id=None
         #     parameters=None
@@ -115,13 +121,35 @@ class Endpoints:
         #         )
         #     ]
         #     outputs=None
-        print("rest endpoint Endpoints infer model_name:", model_name)
+        ###################################################
+        # rest endpoint Endpoints infer payload:
+        #     id=None
+        #     parameters=None
+        #     inputs=[
+        #         RequestInput(
+        #             name='args',
+        #             shape=[1],
+        #             datatype='BYTES',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=['this is a test']
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
+
+        # print("rest endpoint Endpoints infer model_name:", model_name)
         # rest endpoint Endpoints infer model_name: mnist-svm
-        print("rest endpoint Endpoints infer model_version:", model_version)
+        ###################################################
+        # rest endpoint Endpoints infer model_name: transformer
+
+        # print("rest endpoint Endpoints infer model_version:", model_version)
         # rest endpoint Endpoints infer model_version: v0.1.0
+        ###################################################
+        # rest endpoint Endpoints infer model_version: None
 
         request_headers = dict(raw_request.headers)
-        print("rest endpoint Endpoints infer request_headers:", request_headers)
+        # print("rest endpoint Endpoints infer request_headers:", request_headers)
         # rest endpoint Endpoints infer request_headers:
         # {
         #     'host': 'localhost:8080',
@@ -130,22 +158,35 @@ class Endpoints:
         #     'accept': '*/*',
         #     'connection': 'keep-alive',
         #     'content-length': '428',
+        #     'content-type': 'application/json'
+        # }
+        ###################################################
+
+        insert_headers(payload, request_headers)
+        # print("rest endpoint Endpoints infer request_headers:", request_headers)
+        # rest endpoint Endpoints infer request_headers:
+        # {
+        #     'host': 'localhost:8080',
+        #     'user-agent': 'python-requests/2.31.0',
+        #     'accept-encoding': 'gzip, deflate, br',
+        #     'accept': '*/*',
+        #     'connection': 'keep-alive',
+        #     'content-length': '428',
+        #     'content-type': 'application/json'
+        # }
+        ###################################################
+        # rest endpoint Endpoints infer request_headers:
+        # {
+        #     'host': 'localhost:8080',
+        #     'user-agent': 'python-requests/2.31.0',
+        #     'accept-encoding': 'gzip, deflate, br',
+        #     'accept': '*/*',
+        #     'connection': 'keep-alive',
+        #     'content-length': '93',
         #     'content-type': 'application/json'
         # }
 
-        insert_headers(payload, request_headers)
-        print("rest endpoint Endpoints infer request_headers:", request_headers)
-        # rest endpoint Endpoints infer request_headers:
-        # {
-        #     'host': 'localhost:8080',
-        #     'user-agent': 'python-requests/2.31.0',
-        #     'accept-encoding': 'gzip, deflate, br',
-        #     'accept': '*/*',
-        #     'connection': 'keep-alive',
-        #     'content-length': '428',
-        #     'content-type': 'application/json'
-        # }
-        print("rest endpoint Endpoints infer payload:", payload)
+        # print("rest endpoint Endpoints infer payload:", payload)
         # rest endpoint Endpoints infer payload:
         #     id=None
         #     parameters=Parameters(
@@ -174,11 +215,38 @@ class Endpoints:
         #         )
         #     ]
         #     outputs=None
+        ###################################################
+        # rest endpoint Endpoints infer payload:
+        #     id=None
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'host': 'localhost:8080',
+        #             'user-agent': 'python-requests/2.31.0',
+        #             'accept-encoding': 'gzip, deflate, br',
+        #             'accept': '*/*',
+        #             'connection': 'keep-alive',
+        #             'content-length': '93',
+        #             'content-type': 'application/json'
+        #         }
+        #     )
+        #     inputs=[
+        #         RequestInput(
+        #             name='args',
+        #             shape=[1],
+        #             datatype='BYTES',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=['this is a test']
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
 
         inference_response = await self._data_plane.infer(
             payload, model_name, model_version
         )
-        print("rest endpoint Endpoints infer inference_response:", inference_response)
+        # print("rest endpoint Endpoints infer inference_response:", inference_response)
         # rest endpoint Endpoints infer inference_response:
         #     model_name='mnist-svm'
         #     model_version='v0.1.0'
@@ -210,9 +278,43 @@ class Endpoints:
         #             )
         #         )
         #     ]
+        ###################################################
+        # rest endpoint Endpoints infer inference_response:
+        #     model_name='transformer'
+        #     model_version=None
+        #     id='4ad7ec9a-4f8b-43dc-9eae-9aca81377840'
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'Ce-Specversion': '0.3',
+        #             'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #             'Ce-Type': 'io.seldon.serving.inference.response',
+        #             'Ce-Modelid': 'transformer',
+        #             'Ce-Inferenceservicename': 'mlserver',
+        #             'Ce-Endpoint': 'transformer',
+        #             'Ce-Id': '4ad7ec9a-4f8b-43dc-9eae-9aca81377840',
+        #             'Ce-Requestid': '4ad7ec9a-4f8b-43dc-9eae-9aca81377840'
+        #         }
+        #     )
+        #     outputs=[
+        #         ResponseOutput(
+        #             name='output',
+        #             shape=[1, 1],
+        #             datatype='BYTES',
+        #             parameters=Parameters(
+        #                 content_type='hg_jsonlist',
+        #                 headers=None
+        #             ),
+        #             data=TensorData(
+        #                 __root__=[
+        #                     b'{"generated_text": "this is a test of the function I put in the \\"Test.\\" If I wasn\'t there then the function for that function would have been called; if you got the test I would have called it; if I didn\'t call the function in the"}'
+        #                 ]
+        #             )
+        #         )
+        #     ]
 
         response_headers = extract_headers(inference_response)
-        print("rest endpoint Endpoints infer response_headers:", response_headers)
+        # print("rest endpoint Endpoints infer response_headers:", response_headers)
         # rest endpoint Endpoints infer response_headers:
         # {
         #     'Ce-Specversion': '0.3',
@@ -224,14 +326,30 @@ class Endpoints:
         #     'Ce-Id': '516e7dc1-b1c0-48e5-9a3e-d391e7657c68',
         #     'Ce-Requestid': '516e7dc1-b1c0-48e5-9a3e-d391e7657c68'
         # }
+        ###################################################
+        # rest endpoint Endpoints infer response_headers:
+        # {
+        #     'Ce-Specversion': '0.3',
+        #     'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #     'Ce-Type': 'io.seldon.serving.inference.response',
+        #     'Ce-Modelid': 'transformer',
+        #     'Ce-Inferenceservicename': 'mlserver',
+        #     'Ce-Endpoint': 'transformer',
+        #     'Ce-Id': '4ad7ec9a-4f8b-43dc-9eae-9aca81377840',
+        #     'Ce-Requestid': '4ad7ec9a-4f8b-43dc-9eae-9aca81377840'
+        # }
 
         if response_headers:
             raw_response.headers.update(response_headers)
-        print("rest endpoint Endpoints infer raw_response:", raw_response)
+        # print("rest endpoint Endpoints infer raw_response:", raw_response)
         # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7fd4ad4910f0>
+        ###################################################
+        # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7b1441333d00>
 
-        print("rest endpoint Endpoints infer inference_response:", inference_response)
+        # print("rest endpoint Endpoints infer inference_response:", inference_response)
         # rest endpoint Endpoints infer inference_response: model_name='mnist-svm' model_version='v0.1.0' id='516e7dc1-b1c0-48e5-9a3e-d391e7657c68' parameters=Parameters(content_type=None, headers=None) outputs=[ResponseOutput(name='predict', shape=[1, 1], datatype='INT64', parameters=Parameters(content_type='np', headers=None), data=TensorData(__root__=[8]))]
+        ###################################################
+        # rest endpoint Endpoints infer inference_response: model_name='transformer' model_version=None id='4ad7ec9a-4f8b-43dc-9eae-9aca81377840' parameters=Parameters(content_type=None, headers=None) outputs=[ResponseOutput(name='output', shape=[1, 1], datatype='BYTES', parameters=Parameters(content_type='hg_jsonlist', headers=None), data=TensorData(__root__=[b'{"generated_text": "this is a test of the function I put in the \\"Test.\\" If I wasn\'t there then the function for that function would have been called; if you got the test I would have called it; if I didn\'t call the function in the"}']))]
 
         return inference_response
 
