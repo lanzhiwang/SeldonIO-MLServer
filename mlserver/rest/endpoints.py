@@ -93,16 +93,145 @@ class Endpoints:
         model_name: str,
         model_version: Optional[str] = None,
     ) -> InferenceResponse:
+        print("rest endpoint Endpoints infer raw_request:", raw_request)
+        # rest endpoint Endpoints infer raw_request: <mlserver.rest.requests.Request object at 0x7fd4ad491630>
+        print("rest endpoint Endpoints infer raw_response:", raw_response)
+        # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7fd4ad4910f0>
+        print("rest endpoint Endpoints infer payload:", payload)
+        # rest endpoint Endpoints infer payload:
+        #     id=None
+        #     parameters=None
+        #     inputs=[
+        #         RequestInput(
+        #             name='predict',
+        #             shape=[1, 64],
+        #             datatype='FP32',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=[
+        #                     [0.0, 0.0, 1.0, 11.0, 14.0, 15.0, 3.0, 0.0, 0.0, 1.0, 13.0, 16.0, 12.0, 16.0, 8.0, 0.0, 0.0, 8.0, 16.0, 4.0, 6.0, 16.0, 5.0, 0.0, 0.0, 5.0, 15.0, 11.0, 13.0, 14.0, 0.0, 0.0, 0.0, 0.0, 2.0, 12.0, 16.0, 13.0, 0.0, 0.0, 0.0, 0.0, 0.0, 13.0, 16.0, 16.0, 6.0, 0.0, 0.0, 0.0, 0.0, 16.0, 16.0, 16.0, 7.0, 0.0, 0.0, 0.0, 0.0, 11.0, 13.0, 12.0, 1.0, 0.0]
+        #                 ]
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
+        print("rest endpoint Endpoints infer model_name:", model_name)
+        # rest endpoint Endpoints infer model_name: mnist-svm
+        print("rest endpoint Endpoints infer model_version:", model_version)
+        # rest endpoint Endpoints infer model_version: v0.1.0
+
         request_headers = dict(raw_request.headers)
+        print("rest endpoint Endpoints infer request_headers:", request_headers)
+        # rest endpoint Endpoints infer request_headers:
+        # {
+        #     'host': 'localhost:8080',
+        #     'user-agent': 'python-requests/2.31.0',
+        #     'accept-encoding': 'gzip, deflate, br',
+        #     'accept': '*/*',
+        #     'connection': 'keep-alive',
+        #     'content-length': '428',
+        #     'content-type': 'application/json'
+        # }
+
         insert_headers(payload, request_headers)
+        print("rest endpoint Endpoints infer request_headers:", request_headers)
+        # rest endpoint Endpoints infer request_headers:
+        # {
+        #     'host': 'localhost:8080',
+        #     'user-agent': 'python-requests/2.31.0',
+        #     'accept-encoding': 'gzip, deflate, br',
+        #     'accept': '*/*',
+        #     'connection': 'keep-alive',
+        #     'content-length': '428',
+        #     'content-type': 'application/json'
+        # }
+        print("rest endpoint Endpoints infer payload:", payload)
+        # rest endpoint Endpoints infer payload:
+        #     id=None
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'host': 'localhost:8080',
+        #             'user-agent': 'python-requests/2.31.0',
+        #             'accept-encoding': 'gzip, deflate, br',
+        #             'accept': '*/*',
+        #             'connection': 'keep-alive',
+        #             'content-length': '428',
+        #             'content-type': 'application/json'
+        #         }
+        #     )
+        #     inputs=[
+        #         RequestInput(
+        #             name='predict',
+        #             shape=[1, 64],
+        #             datatype='FP32',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=[
+        #                     [0.0, 0.0, 1.0, 11.0, 14.0, 15.0, 3.0, 0.0, 0.0, 1.0, 13.0, 16.0, 12.0, 16.0, 8.0, 0.0, 0.0, 8.0, 16.0, 4.0, 6.0, 16.0, 5.0, 0.0, 0.0, 5.0, 15.0, 11.0, 13.0, 14.0, 0.0, 0.0, 0.0, 0.0, 2.0, 12.0, 16.0, 13.0, 0.0, 0.0, 0.0, 0.0, 0.0, 13.0, 16.0, 16.0, 6.0, 0.0, 0.0, 0.0, 0.0, 16.0, 16.0, 16.0, 7.0, 0.0, 0.0, 0.0, 0.0, 11.0, 13.0, 12.0, 1.0, 0.0]
+        #                 ]
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
 
         inference_response = await self._data_plane.infer(
             payload, model_name, model_version
         )
+        print("rest endpoint Endpoints infer inference_response:", inference_response)
+        # rest endpoint Endpoints infer inference_response:
+        #     model_name='mnist-svm'
+        #     model_version='v0.1.0'
+        #     id='516e7dc1-b1c0-48e5-9a3e-d391e7657c68'
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'Ce-Specversion': '0.3',
+        #             'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #             'Ce-Type': 'io.seldon.serving.inference.response',
+        #             'Ce-Modelid': 'mnist-svm',
+        #             'Ce-Inferenceservicename': 'mlserver',
+        #             'Ce-Endpoint': 'mnist-svm',
+        #             'Ce-Id': '516e7dc1-b1c0-48e5-9a3e-d391e7657c68',
+        #             'Ce-Requestid': '516e7dc1-b1c0-48e5-9a3e-d391e7657c68'
+        #         }
+        #     )
+        #     outputs=[
+        #         ResponseOutput(
+        #             name='predict',
+        #             shape=[1, 1],
+        #             datatype='INT64',
+        #             parameters=Parameters(
+        #                 content_type='np',
+        #                 headers=None
+        #             ),
+        #             data=TensorData(
+        #                 __root__=[8]
+        #             )
+        #         )
+        #     ]
 
         response_headers = extract_headers(inference_response)
+        print("rest endpoint Endpoints infer response_headers:", response_headers)
+        # rest endpoint Endpoints infer response_headers:
+        # {
+        #     'Ce-Specversion': '0.3',
+        #     'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #     'Ce-Type': 'io.seldon.serving.inference.response',
+        #     'Ce-Modelid': 'mnist-svm',
+        #     'Ce-Inferenceservicename': 'mlserver',
+        #     'Ce-Endpoint': 'mnist-svm',
+        #     'Ce-Id': '516e7dc1-b1c0-48e5-9a3e-d391e7657c68',
+        #     'Ce-Requestid': '516e7dc1-b1c0-48e5-9a3e-d391e7657c68'
+        # }
+
         if response_headers:
             raw_response.headers.update(response_headers)
+        print("rest endpoint Endpoints infer raw_response:", raw_response)
+        # rest endpoint Endpoints infer raw_response: <starlette.responses.Response object at 0x7fd4ad4910f0>
+
+        print("rest endpoint Endpoints infer inference_response:", inference_response)
+        # rest endpoint Endpoints infer inference_response: model_name='mnist-svm' model_version='v0.1.0' id='516e7dc1-b1c0-48e5-9a3e-d391e7657c68' parameters=Parameters(content_type=None, headers=None) outputs=[ResponseOutput(name='predict', shape=[1, 1], datatype='INT64', parameters=Parameters(content_type='np', headers=None), data=TensorData(__root__=[8]))]
 
         return inference_response
 

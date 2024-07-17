@@ -10,6 +10,7 @@ inference_request = {
         }
     ]
 }
+print("inference_request:", inference_request)
 
 response = requests.post(
     "http://localhost:8080/v2/models/transformer/infer", json=inference_request
