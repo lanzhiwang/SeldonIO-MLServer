@@ -42,9 +42,69 @@ async def start(folder: str):
     """
     Start serving a machine learning model with MLServer.
     """
+    print("cli main start folder:", folder)
     settings, models_settings = await load_settings(folder)
     print("cli main start settings:", settings)
+    # cli main start settings:
+    #     debug=True
+    #     parallel_workers=1
+    #     parallel_workers_timeout=5
+    #     environments_dir='/workspaces/SeldonIO-MLServer/.envs'
+    #     model_repository_implementation=None
+    #     model_repository_root='./example/02-Serving-HuggingFace-models/'
+    #     model_repository_implementation_args={}
+    #     load_models_at_startup=True
+    #     server_name='mlserver'
+    #     server_version='1.5.0'
+    #     extensions=[]
+    #     host='0.0.0.0'
+    #     http_port=8080
+    #     root_path=''
+    #     grpc_port=8081
+    #     grpc_max_message_length=None
+    #     cors_settings=None
+    #     metrics_endpoint='/metrics'
+    #     metrics_port=8082
+    #     metrics_rest_server_prefix='rest_server'
+    #     metrics_dir='/workspaces/SeldonIO-MLServer/.metrics'
+    #     use_structured_logging=False
+    #     logging_settings=None
+    #     kafka_enabled=False
+    #     kafka_servers='localhost:9092'
+    #     kafka_topic_input='mlserver-input'
+    #     kafka_topic_output='mlserver-output'
+    #     tracing_server=None
+    #     cache_enabled=False
+    #     cache_size=100
+
     print("cli main start models_settings:", models_settings)
+    # cli main start models_settings:
+    # [
+    #     ModelSettings(
+    #         name='transformer',
+    #         platform='',
+    #         versions=[],
+    #         inputs=[],
+    #         outputs=[],
+    #         parallel_workers=None,
+    #         warm_workers=False,
+    #         max_batch_size=0,
+    #         max_batch_time=0.0,
+    #         implementation_='mlserver_huggingface.HuggingFaceRuntime',
+    #         parameters=ModelParameters(
+    #             uri='/workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models',
+    #             version=None,
+    #             environment_tarball=None,
+    #             format=None,
+    #             content_type=None,
+    #             extra={
+    #                 'task': 'text-generation',
+    #                 'pretrained_model': 'distilgpt2'
+    #             }
+    #         ),
+    #         cache_enabled=False
+    #     )
+    # ]
 
     server = MLServer(settings)
     await server.start(models_settings)

@@ -5,11 +5,16 @@ from ..logging import logger
 
 
 def load_model_settings(model_settings_path: str) -> ModelSettings:
+    print("repository load load_model_settings model_settings_path:", model_settings_path)
+
     model_settings = ModelSettings.parse_file(model_settings_path)
+    print("repository load load_model_settings model_settings:", model_settings)
 
     # If name not present, default to folder name
     model_settings_folder = os.path.dirname(model_settings_path)
+    print("repository load load_model_settings model_settings_folder:", model_settings_folder)
     folder_name = os.path.basename(model_settings_folder)
+    print("repository load load_model_settings folder_name:", folder_name)
     if model_settings.name:
         if not _folder_matches(folder_name, model_settings):
             # Raise warning if name is different than folder's name

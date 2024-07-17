@@ -31,20 +31,27 @@ class SchemalessModelRepository(ModelRepository):
     """
 
     def __init__(self, root: str):
+        # self._root='./example/02-Serving-HuggingFace-models/'
         self._root = root
 
     async def list(self) -> List[ModelSettings]:
         all_model_settings = []
 
+        print("repository repository list self._root:", self._root)
         # TODO: Use an async alternative for filesys ops
         if self._root:
             abs_root = os.path.abspath(self._root)
+            print("repository repository list abs_root:", abs_root)
             pattern = os.path.join(abs_root, "**", DEFAULT_MODEL_SETTINGS_FILENAME)
+            print("repository repository list pattern:", pattern)
             matches = glob.glob(pattern, recursive=True)
+            print("repository repository list matches:", matches)
 
             for model_settings_path in matches:
+                print("repository repository list model_settings_path:", model_settings_path)
                 try:
                     model_settings = load_model_settings(model_settings_path)
+                    print("repository repository list model_settings:", model_settings)
                     all_model_settings.append(model_settings)
                 except Exception:
                     logger.exception(

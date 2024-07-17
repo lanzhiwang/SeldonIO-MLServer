@@ -1,3 +1,4 @@
 {
-	"debug": "true"
+	"debug": "true",
+	"parallel_workers_timeout": 6
 }
