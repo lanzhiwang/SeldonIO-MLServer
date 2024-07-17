@@ -31,7 +31,7 @@ async def load_settings(
         settings = Settings.parse_file(settings_path)
     else:
         settings = Settings()
-    print("cli serve load_settings settings:", settings)
+    # print("cli serve load_settings settings:", settings)
     # cli serve load_settings settings:
     #     debug=True
     #     parallel_workers=1
@@ -66,7 +66,7 @@ async def load_settings(
 
     if folder is not None:
         settings.model_repository_root = folder
-    print("cli serve load_settings settings:", settings)
+    # print("cli serve load_settings settings:", settings)
     # cli serve load_settings settings:
     #     debug=True
     #     parallel_workers=1

@@ -306,25 +306,89 @@ class ModelSettings(BaseSettings):
 
     @classmethod
     def parse_file(cls, path: str) -> "ModelSettings":  # type: ignore
-        print('settings ModelSettings parse_file path:', path)
+        # print('settings ModelSettings parse_file path:', path)
+        # settings ModelSettings parse_file path: /workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models/model-settings.json
 
         with open(path, "r") as f:
             obj = json.load(f)
-            print('settings ModelSettings parse_file obj:', obj)
+            # print('settings ModelSettings parse_file obj:', obj)
+            # settings ModelSettings parse_file obj:
+            # {
+            #     'name': 'transformer',
+            #     'implementation': 'mlserver_huggingface.HuggingFaceRuntime',
+            #     'parameters': {
+            #         'extra': {
+            #             'task': 'text-generation',
+            #             'pretrained_model': 'distilgpt2'
+            #         }
+            #     }
+            # }
+
             obj["_source"] = path
-            print('settings ModelSettings parse_file obj:', obj)
+            # print('settings ModelSettings parse_file obj:', obj)
+            # settings ModelSettings parse_file obj:
+            # {
+            #     'name': 'transformer',
+            #     'implementation': 'mlserver_huggingface.HuggingFaceRuntime',
+            #     'parameters': {
+            #         'extra': {
+            #             'task': 'text-generation',
+            #             'pretrained_model': 'distilgpt2'
+            #         }
+            #     },
+            #     '_source': '/workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models/model-settings.json'
+            # }
+
             return cls.parse_obj(obj)
 
     @classmethod
     def parse_obj(cls, obj: Any) -> "ModelSettings":
-        print('settings ModelSettings parse_obj obj:', obj)
+        # print('settings ModelSettings parse_obj obj:', obj)
+        # settings ModelSettings parse_obj obj:
+        # {
+        #     'name': 'transformer',
+        #     'implementation': 'mlserver_huggingface.HuggingFaceRuntime',
+        #     'parameters': {
+        #         'extra': {
+        #             'task': 'text-generation',
+        #             'pretrained_model': 'distilgpt2'
+        #         }
+        #     },
+        #     '_source': '/workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models/model-settings.json'
+        # }
+
         source = obj.pop("_source", None)
         model_settings = super().parse_obj(obj)
-        print('settings ModelSettings parse_obj model_settings:', model_settings)
+        # print('settings ModelSettings parse_obj model_settings:', model_settings)
+        # settings ModelSettings parse_obj model_settings:
+        #     name='transformer'
+        #     platform=''
+        #     versions=[]
+        #     inputs=[]
+        #     outputs=[]
+        #     parallel_workers=None
+        #     warm_workers=False
+        #     max_batch_size=0
+        #     max_batch_time=0.0
+        #     implementation_='mlserver_huggingface.HuggingFaceRuntime'
+        #     parameters=ModelParameters(
+        #         uri=None,
+        #         version=None,
+        #         environment_tarball=None,
+        #         format=None,
+        #         content_type=None,
+        #         extra={
+        #             'task': 'text-generation',
+        #             'pretrained_model': 'distilgpt2'
+        #         }
+        #     )
+        #     cache_enabled=False
+
         if source:
             model_settings._source = source
 
         return model_settings
+
 
     @property
     def implementation(self) -> Type["MLModel"]:

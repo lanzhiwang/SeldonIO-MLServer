@@ -40,7 +40,7 @@ def load_model_settings(model_settings_path: str) -> ModelSettings:
     # repository load load_model_settings model_settings_folder: /workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models
 
     folder_name = os.path.basename(model_settings_folder)
-    print("repository load load_model_settings folder_name:", folder_name)
+    # print("repository load load_model_settings folder_name:", folder_name)
     # repository load load_model_settings folder_name: 02-Serving-HuggingFace-models
 
     if model_settings.name:
