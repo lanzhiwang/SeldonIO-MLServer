@@ -43,6 +43,8 @@ async def start(folder: str):
     Start serving a machine learning model with MLServer.
     """
     settings, models_settings = await load_settings(folder)
+    print("cli main start settings:", settings)
+    print("cli main start models_settings:", models_settings)
 
     server = MLServer(settings)
     await server.start(models_settings)

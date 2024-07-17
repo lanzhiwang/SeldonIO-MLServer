@@ -26,17 +26,21 @@ async def load_settings(
     settings = None
     if _path_exists(folder, DEFAULT_SETTINGS_FILENAME):
         settings_path = os.path.join(folder, DEFAULT_SETTINGS_FILENAME)  # type: ignore
+        print("cli serve load_settings settings_path:", settings_path)
         settings = Settings.parse_file(settings_path)
     else:
         settings = Settings()
+    print("cli serve load_settings settings:", settings)
 
     if folder is not None:
         settings.model_repository_root = folder
+    print("cli serve load_settings settings:", settings)
 
     models_settings = []
     if settings.load_models_at_startup:
         repository = ModelRepositoryFactory.resolve_model_repository(settings)
         models_settings = await repository.list()
+    print("cli serve load_settings models_settings:", models_settings)
 
     return settings, models_settings
 
