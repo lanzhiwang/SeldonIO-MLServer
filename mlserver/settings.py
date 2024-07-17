@@ -306,15 +306,21 @@ class ModelSettings(BaseSettings):
 
     @classmethod
     def parse_file(cls, path: str) -> "ModelSettings":  # type: ignore
+        print('settings ModelSettings parse_file path:', path)
+
         with open(path, "r") as f:
             obj = json.load(f)
+            print('settings ModelSettings parse_file obj:', obj)
             obj["_source"] = path
+            print('settings ModelSettings parse_file obj:', obj)
             return cls.parse_obj(obj)
 
     @classmethod
     def parse_obj(cls, obj: Any) -> "ModelSettings":
+        print('settings ModelSettings parse_obj obj:', obj)
         source = obj.pop("_source", None)
         model_settings = super().parse_obj(obj)
+        print('settings ModelSettings parse_obj model_settings:', model_settings)
         if source:
             model_settings._source = source
 

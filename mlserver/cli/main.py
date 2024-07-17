@@ -42,9 +42,10 @@ async def start(folder: str):
     """
     Start serving a machine learning model with MLServer.
     """
-    print("cli main start folder:", folder)
+    # print("cli main start folder:", folder)
+    # cli main start folder: ./example/02-Serving-HuggingFace-models/
     settings, models_settings = await load_settings(folder)
-    print("cli main start settings:", settings)
+    # print("cli main start settings:", settings)
     # cli main start settings:
     #     debug=True
     #     parallel_workers=1
@@ -77,7 +78,7 @@ async def start(folder: str):
     #     cache_enabled=False
     #     cache_size=100
 
-    print("cli main start models_settings:", models_settings)
+    # print("cli main start models_settings:", models_settings)
     # cli main start models_settings:
     # [
     #     ModelSettings(

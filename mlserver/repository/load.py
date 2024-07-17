@@ -5,16 +5,44 @@ from ..logging import logger
 
 
 def load_model_settings(model_settings_path: str) -> ModelSettings:
-    print("repository load load_model_settings model_settings_path:", model_settings_path)
+    # print("repository load load_model_settings model_settings_path:", model_settings_path)
+    # repository load load_model_settings model_settings_path: /workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models/model-settings.json
 
     model_settings = ModelSettings.parse_file(model_settings_path)
-    print("repository load load_model_settings model_settings:", model_settings)
+    # print("repository load load_model_settings model_settings:", model_settings)
+    # repository load load_model_settings model_settings:
+    #     name='transformer'
+    #     platform=''
+    #     versions=[]
+    #     inputs=[]
+    #     outputs=[]
+    #     parallel_workers=None
+    #     warm_workers=False
+    #     max_batch_size=0
+    #     max_batch_time=0.0
+    #     implementation_='mlserver_huggingface.HuggingFaceRuntime'
+    #     parameters=ModelParameters(
+    #         uri=None,
+    #         version=None,
+    #         environment_tarball=None,
+    #         format=None,
+    #         content_type=None,
+    #         extra={
+    #             'task': 'text-generation',
+    #             'pretrained_model': 'distilgpt2'
+    #         }
+    #     )
+    #     cache_enabled=False
 
     # If name not present, default to folder name
     model_settings_folder = os.path.dirname(model_settings_path)
-    print("repository load load_model_settings model_settings_folder:", model_settings_folder)
+    # print("repository load load_model_settings model_settings_folder:", model_settings_folder)
+    # repository load load_model_settings model_settings_folder: /workspaces/SeldonIO-MLServer/example/02-Serving-HuggingFace-models
+
     folder_name = os.path.basename(model_settings_folder)
     print("repository load load_model_settings folder_name:", folder_name)
+    # repository load load_model_settings folder_name: 02-Serving-HuggingFace-models
+
     if model_settings.name:
         if not _folder_matches(folder_name, model_settings):
             # Raise warning if name is different than folder's name
