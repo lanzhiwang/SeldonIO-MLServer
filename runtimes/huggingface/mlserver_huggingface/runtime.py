@@ -77,8 +77,10 @@ class HuggingFaceRuntime(MLModel):
         # TODO: convert and validate?
         kwargs = HuggingfaceRequestCodec.decode_request(payload)
         args = kwargs.pop("args", [])
-        print("runtime huggingface runtime predict kwargs:", kwargs)
-        print("runtime huggingface runtime predict args:", args)
+        # print("runtime huggingface runtime predict kwargs:", kwargs)
+        # runtime huggingface runtime predict kwargs: {}
+        # print("runtime huggingface runtime predict args:", args)
+        # runtime huggingface runtime predict args: ['this is a test']
 
         array_inputs = kwargs.pop("array_inputs", [])
         if array_inputs:

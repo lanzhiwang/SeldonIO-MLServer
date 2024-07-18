@@ -250,10 +250,21 @@ class MultiInputRequestCodec(RequestCodec):
 
         values = {}
         field_codecs = cls._find_decode_codecs(request)
-        print("runtime huggingface codecs decode_request field_codecs:", field_codecs)
+        # print("runtime huggingface codecs decode_request field_codecs:", field_codecs)
+        # runtime huggingface codecs decode_request field_codecs: {'args': <class 'mlserver.codecs.string.StringCodec'>}
+
         for item in request.inputs:
-            print("runtime huggingface codecs decode_request item:", item)
-            print("runtime huggingface codecs decode_request has_decoded(item):", has_decoded(item))
+            # print("runtime huggingface codecs decode_request item:", item)
+            # runtime huggingface codecs decode_request item:
+            #     name='args'
+            #     shape=[1]
+            #     datatype='BYTES'
+            #     parameters=None
+            #     data=TensorData(__root__=['this is a test'])
+
+            # print("runtime huggingface codecs decode_request has_decoded(item):", has_decoded(item))
+            # runtime huggingface codecs decode_request has_decoded(item): False
+
             if not has_decoded(item):
                 codec = field_codecs[item.name]
                 if codec is not None:
@@ -263,7 +274,6 @@ class MultiInputRequestCodec(RequestCodec):
             value = get_decoded_or_raw(item)
             values[item.name] = value
         return values
-
 
 @register_request_codec
 class HuggingfaceRequestCodec(MultiInputRequestCodec):
