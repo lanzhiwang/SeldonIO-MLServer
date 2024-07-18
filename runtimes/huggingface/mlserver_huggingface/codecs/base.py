@@ -65,18 +65,59 @@ class MultiInputRequestCodec(RequestCodec):
     def _find_decode_codecs(
         cls, data: Union[InferenceResponse, InferenceRequest]
     ) -> Dict[str, Union[Type[InputCodecTy], InputCodecTy, None]]:
-        print("runtime huggingface codecs _find_decode_codecs data:", data)
+        # print("runtime huggingface codecs _find_decode_codecs data:", data)
+        # runtime huggingface codecs _find_decode_codecs data:
+        #     id='d8e57b8b-1082-4340-b41f-0d3d3f87a3bc'
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'host': 'localhost:8080',
+        #             'user-agent': 'python-requests/2.31.0',
+        #             'accept-encoding': 'gzip, deflate, br',
+        #             'accept': '*/*',
+        #             'connection': 'keep-alive',
+        #             'content-length': '93',
+        #             'content-type': 'application/json',
+        #             'Ce-Specversion': '0.3',
+        #             'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #             'Ce-Type': 'io.seldon.serving.inference.request',
+        #             'Ce-Modelid': 'transformer',
+        #             'Ce-Inferenceservicename': 'mlserver',
+        #             'Ce-Endpoint': 'transformer',
+        #             'Ce-Id': 'd8e57b8b-1082-4340-b41f-0d3d3f87a3bc',
+        #             'Ce-Requestid': 'd8e57b8b-1082-4340-b41f-0d3d3f87a3bc'
+        #         }
+        #     )
+        #     inputs=[
+        #         RequestInput(
+        #             name='args',
+        #             shape=[1],
+        #             datatype='BYTES',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=['this is a test']
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
+
         field_codec: Dict[str, Union[Type[InputCodecTy], InputCodecTy, None]] = {}
+
         default_codec: Union[Type[InputCodecTy], InputCodecTy, None] = None
+
         fields: Sequence[Union[RequestInput, ResponseOutput]] = []
+
         if data.parameters and data.parameters.content_type:
             default_codec = find_input_codec(data.parameters.content_type)
+
         if default_codec is None:
             default_codec = cls.DefaultCodec
+
         if isinstance(data, InferenceRequest):
             fields = data.inputs
         else:
             fields = data.outputs  # type: ignore
+
         for field in fields:
             if not field.parameters:
                 field_codec[field.name] = default_codec
@@ -171,7 +212,42 @@ class MultiInputRequestCodec(RequestCodec):
 
     @classmethod
     def decode_request(cls, request: InferenceRequest) -> Dict[str, Any]:
-        print("runtime huggingface codecs decode_request request:", request)
+        # print("runtime huggingface codecs decode_request request:", request)
+        # runtime huggingface codecs decode_request request:
+        #     id='d8e57b8b-1082-4340-b41f-0d3d3f87a3bc'
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'host': 'localhost:8080',
+        #             'user-agent': 'python-requests/2.31.0',
+        #             'accept-encoding': 'gzip, deflate, br',
+        #             'accept': '*/*',
+        #             'connection': 'keep-alive',
+        #             'content-length': '93',
+        #             'content-type': 'application/json',
+        #             'Ce-Specversion': '0.3',
+        #             'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #             'Ce-Type': 'io.seldon.serving.inference.request',
+        #             'Ce-Modelid': 'transformer',
+        #             'Ce-Inferenceservicename': 'mlserver',
+        #             'Ce-Endpoint': 'transformer',
+        #             'Ce-Id': 'd8e57b8b-1082-4340-b41f-0d3d3f87a3bc',
+        #             'Ce-Requestid': 'd8e57b8b-1082-4340-b41f-0d3d3f87a3bc'
+        #         }
+        #     )
+        #     inputs=[
+        #         RequestInput(
+        #             name='args',
+        #             shape=[1],
+        #             datatype='BYTES',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=['this is a test']
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
+
         values = {}
         field_codecs = cls._find_decode_codecs(request)
         print("runtime huggingface codecs decode_request field_codecs:", field_codecs)

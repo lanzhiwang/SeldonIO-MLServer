@@ -209,6 +209,8 @@ class _CodecRegistry:
     ):
         self._input_codecs = input_codecs
         self._request_codecs = request_codecs
+        print("mlserver codecs base _CodecRegistry __init__ self._input_codecs:", self._input_codecs)
+        print("mlserver codecs base _CodecRegistry __init__ self._request_codecs:", self._request_codecs)
 
     def register_input_codec(self, content_type: str, codec: InputCodecLike):
         # TODO: Raise error if codec exists?
@@ -220,6 +222,7 @@ class _CodecRegistry:
         payload: Optional[Any] = None,
         type_hint: Optional[Type] = None,
     ) -> Optional[InputCodecLike]:
+        print("mlserver codecs base _CodecRegistry find_input_codec self._input_codecs:", self._input_codecs)
         if content_type:
             return self._input_codecs.get(content_type)
         elif payload:

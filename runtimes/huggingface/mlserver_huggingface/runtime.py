@@ -38,7 +38,42 @@ class HuggingFaceRuntime(MLModel):
         return True
 
     async def predict(self, payload: InferenceRequest) -> InferenceResponse:
-        print("runtime huggingface runtime predict payload:", payload)
+        # print("runtime huggingface runtime predict payload:", payload)
+        # runtime huggingface runtime predict payload:
+        #     id='d8e57b8b-1082-4340-b41f-0d3d3f87a3bc'
+        #     parameters=Parameters(
+        #         content_type=None,
+        #         headers={
+        #             'host': 'localhost:8080',
+        #             'user-agent': 'python-requests/2.31.0',
+        #             'accept-encoding': 'gzip, deflate, br',
+        #             'accept': '*/*',
+        #             'connection': 'keep-alive',
+        #             'content-length': '93',
+        #             'content-type': 'application/json',
+        #             'Ce-Specversion': '0.3',
+        #             'Ce-Source': 'io.seldon.serving.deployment.mlserver',
+        #             'Ce-Type': 'io.seldon.serving.inference.request',
+        #             'Ce-Modelid': 'transformer',
+        #             'Ce-Inferenceservicename': 'mlserver',
+        #             'Ce-Endpoint': 'transformer',
+        #             'Ce-Id': 'd8e57b8b-1082-4340-b41f-0d3d3f87a3bc',
+        #             'Ce-Requestid': 'd8e57b8b-1082-4340-b41f-0d3d3f87a3bc'
+        #         }
+        #     )
+        #     inputs=[
+        #         RequestInput(
+        #             name='args',
+        #             shape=[1],
+        #             datatype='BYTES',
+        #             parameters=None,
+        #             data=TensorData(
+        #                 __root__=['this is a test']
+        #             )
+        #         )
+        #     ]
+        #     outputs=None
+
         # TODO: convert and validate?
         kwargs = HuggingfaceRequestCodec.decode_request(payload)
         args = kwargs.pop("args", [])
