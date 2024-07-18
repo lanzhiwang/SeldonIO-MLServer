@@ -38,9 +38,12 @@ class HuggingFaceRuntime(MLModel):
         return True
 
     async def predict(self, payload: InferenceRequest) -> InferenceResponse:
+        print("runtime huggingface runtime predict payload:", payload)
         # TODO: convert and validate?
         kwargs = HuggingfaceRequestCodec.decode_request(payload)
         args = kwargs.pop("args", [])
+        print("runtime huggingface runtime predict kwargs:", kwargs)
+        print("runtime huggingface runtime predict args:", args)
 
         array_inputs = kwargs.pop("array_inputs", [])
         if array_inputs:

@@ -65,6 +65,7 @@ class MultiInputRequestCodec(RequestCodec):
     def _find_decode_codecs(
         cls, data: Union[InferenceResponse, InferenceRequest]
     ) -> Dict[str, Union[Type[InputCodecTy], InputCodecTy, None]]:
+        print("runtime huggingface codecs _find_decode_codecs data:", data)
         field_codec: Dict[str, Union[Type[InputCodecTy], InputCodecTy, None]] = {}
         default_codec: Union[Type[InputCodecTy], InputCodecTy, None] = None
         fields: Sequence[Union[RequestInput, ResponseOutput]] = []
@@ -170,9 +171,13 @@ class MultiInputRequestCodec(RequestCodec):
 
     @classmethod
     def decode_request(cls, request: InferenceRequest) -> Dict[str, Any]:
+        print("runtime huggingface codecs decode_request request:", request)
         values = {}
         field_codecs = cls._find_decode_codecs(request)
+        print("runtime huggingface codecs decode_request field_codecs:", field_codecs)
         for item in request.inputs:
+            print("runtime huggingface codecs decode_request item:", item)
+            print("runtime huggingface codecs decode_request has_decoded(item):", has_decoded(item))
             if not has_decoded(item):
                 codec = field_codecs[item.name]
                 if codec is not None:
